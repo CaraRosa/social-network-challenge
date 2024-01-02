@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/CaraRosa/social-network-challenge#readme",
   "dependencies": {
+    "assert": "^2.1.0",
     "express": "^4.18.2",
     "mongoose": "^8.0.3"
   }
