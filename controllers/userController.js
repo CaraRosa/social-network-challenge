@@ -24,6 +24,7 @@ module.exports = {
 
             res.json(user);
         } catch(err) {
+            console.log(err);
             res.status(500).json(err);
         }
     },
@@ -79,11 +80,15 @@ module.exports = {
         console.log(req.body);
 
         try {
+            console.log('Updating user with ID:', req.params.userId);
+            console.log('Adding friend with ID:', req.body.userId);
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId},
-                { $addToSet: { friends: req.body.friendId } },
+                { $addToSet: { friends: req.body.userId } },
                 { runValidators: true, new: true }
             );
+
+            console.log('Updated user:', user);
 
             if (!user) {
                 return res.status(404).json( { message: 'No user with that ID.' });
@@ -98,7 +103,7 @@ module.exports = {
     async removeFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(
-                { _id: req.params.uderId },
+                { _id: req.params.userId },
                 { $pull: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             );
