@@ -76,19 +76,13 @@ module.exports = {
 
     // adds a friend to the user's friend list
     async addFriend(req, res) {
-        console.log('Adding a friend');
-        console.log(req.body);
 
         try {
-            console.log('Updating user with ID:', req.params.userId);
-            console.log('Adding friend with ID:', req.body.userId);
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId},
                 { $addToSet: { friends: req.body.userId } },
                 { runValidators: true, new: true }
             );
-
-            console.log('Updated user:', user);
 
             if (!user) {
                 return res.status(404).json( { message: 'No user with that ID.' });
