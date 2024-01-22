@@ -28,11 +28,9 @@ module.exports = {
     // create a new thought
     async createThought (req, res) {
         try {
-            console.log(req.body);
             const thought = req.body
 
             const createdThought = await Thought.create(thought);
-            console.log(createdThought);
 
             // push created thought to associated user's thoughts
             const updatedUser = await User.findByIdAndUpdate(
@@ -101,8 +99,6 @@ module.exports = {
 
   // create a reaction on a thought
   async createReaction (req, res) {
-        console.log('Adding a reaction');
-        console.log(req.body);
 
         try {
             const thought = await Thought.findOneAndUpdate(
