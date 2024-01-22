@@ -43,11 +43,6 @@ module.exports = {
                 return res.status(400).json({ message: "User not found."});
             }
 
-            // if(!thought || !userId) {
-            //     return res.status(400).json({ message: "Unable to create thought." });
-            // }
-
-            
 
             const thoughtId = createdThought._id;
 
@@ -55,7 +50,6 @@ module.exports = {
             res.json({ 
                 message: "created thought"
                });
-            // res.json({ thought: createdThought, updatedUser });
         } catch(err) {
             console.error(err);
             return res.status(500).json(err);

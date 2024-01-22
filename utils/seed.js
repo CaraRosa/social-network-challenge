@@ -11,13 +11,6 @@ connection.on('error', (err) => err);
 connection.once ('open', async() => {
 
   try {
-    // await User.deleteMany();
-    // await Thought.deleteMany();
-    // await Reaction.deleteMany();
-
-    // await User.connection.insertMany(users);
-    // await Thought.connection.insertMany(thoughts);
-    // await Reaction.connection.insertMany(reactions);
 
     for ( var i in users) {
         User.create(users[i]);
