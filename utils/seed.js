@@ -1,29 +1,33 @@
-const connection = require('../config/connection');
-const { User, Thought } = require('../models');
+const mongoose = require('mongoose');
+const { User, Thought, Reaction } = require('../models');
+const { users, thoughts, reactions, friends } = require('./data');
 
-// require data here after creating data.js
+mongoose.connect('mongodb://localhost:27017/networkDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const connection = mongoose.connection;
 
 connection.on('error', (err) => err);
 
-connection.once('open', async () =>
-{
-    console.log('connected');
-    
-    // delete user if a user already exists
-    let userCheck = await connection.db.listCollections({
-        name: 'users'}).toArray();
-        if(userCheck.length) {
-            await connection.dropCollection('users');
-        }
+connection.once ('open', async() => {
 
-        // delete a thought if a thought already exists
-        let thoughtCheck = await connection.db.listCollections({
-            name: 'thoughts'}).toArray();
-            if (thoughtCheck.length) {
-                await connection.dropCollection('thoughts');
-            }
+  try {
+    // await User.deleteMany();
+    // await Thought.deleteMany();
+    // await Reaction.deleteMany();
 
-    const thoughts = [];
-        
+    // await User.connection.insertMany(users);
+    // await Thought.connection.insertMany(thoughts);
+    // await Reaction.connection.insertMany(reactions);
+
+    for ( var i in users) {
+        User.create(users[i]);
+    }
+
+    console.log('Database seeded successfully!');
+  } catch (error) {
+    console.error('Error seeding database:', error);
+  } finally {
+    process.exit(0);
+  }
 
 })
